@@ -52,7 +52,7 @@ export async function seed() {
     await Workout.updateOne(
       { title: 'Strength Circuit' },
       { $set: { title: 'Strength Circuit', focus: 'strength', minutes: 30, difficulty: 'moderate' } },
-      { upsert: true },
+      { upsert: true, setDefaultsOnInsert: true, runValidators: true },
     );
   } finally {
     await disconnectDatabase();

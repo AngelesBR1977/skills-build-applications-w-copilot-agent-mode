@@ -3,10 +3,10 @@ import { CapabilityCard } from './CapabilityCard.js';
 
 type Team = { name: string; members: unknown[] };
 
-export default function Teams() {
-  const loadTeams = () => getJson<{ teams: Team[] }>('/api/teams')
-    .then(({ teams }) => teams);
+const loadTeams = () => getJson<{ teams: Team[] }>('/api/teams')
+  .then(({ teams }) => teams);
 
+export default function Teams() {
   return (
     <CapabilityCard<Team>
       title="Teams"

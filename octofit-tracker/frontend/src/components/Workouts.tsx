@@ -3,12 +3,12 @@ import { CapabilityCard } from './CapabilityCard.js';
 
 type WorkoutSuggestion = { title: string; reason?: string };
 
-export default function Workouts() {
-  const userEmail = 'mona@example.com';
-  const loadSuggestions = () => getJson<{ suggestions: WorkoutSuggestion[] }>(
-    `/api/workouts/suggestions/${encodeURIComponent(userEmail)}`,
-  ).then(({ suggestions }) => suggestions);
+const userEmail = 'mona@example.com';
+const loadSuggestions = () => getJson<{ suggestions: WorkoutSuggestion[] }>(
+  `/api/workouts/suggestions/${encodeURIComponent(userEmail)}`,
+).then(({ suggestions }) => suggestions);
 
+export default function Workouts() {
   return (
     <CapabilityCard<WorkoutSuggestion>
       title="Workout suggestions"

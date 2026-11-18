@@ -3,10 +3,10 @@ import { CapabilityCard } from './CapabilityCard.js';
 
 type LeaderboardEntry = { teamName: string; totalPoints: number; rank: number };
 
-export default function Leaderboard() {
-  const loadLeaderboard = () => getJson<{ leaderboard: LeaderboardEntry[] }>('/api/leaderboard')
-    .then(({ leaderboard }) => leaderboard);
+const loadLeaderboard = () => getJson<{ leaderboard: LeaderboardEntry[] }>('/api/leaderboard')
+  .then(({ leaderboard }) => leaderboard);
 
+export default function Leaderboard() {
   return (
     <CapabilityCard<LeaderboardEntry>
       title="Leaderboard"

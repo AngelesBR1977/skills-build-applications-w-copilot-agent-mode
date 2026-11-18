@@ -3,10 +3,10 @@ import { CapabilityCard } from './CapabilityCard.js';
 
 type Activity = { type: string; minutes: number; points: number };
 
-export default function Activities() {
-  const loadActivities = () => getJson<{ activities: Activity[] }>('/api/activities')
-    .then(({ activities }) => activities);
+const loadActivities = () => getJson<{ activities: Activity[] }>('/api/activities')
+  .then(({ activities }) => activities);
 
+export default function Activities() {
   return (
     <CapabilityCard<Activity>
       title="Activities"
