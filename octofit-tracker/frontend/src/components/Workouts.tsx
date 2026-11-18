@@ -1,14 +1,19 @@
+import { getJson } from '../api/client.js';
 import { CapabilityCard } from './CapabilityCard.js';
 
 type WorkoutSuggestion = { title: string; reason?: string };
 
 export default function Workouts() {
+  const userEmail = 'mona@example.com';
+  const loadSuggestions = () => getJson<{ suggestions: WorkoutSuggestion[] }>(
+    `/api/workouts/suggestions/${encodeURIComponent(userEmail)}`,
+  ).then(({ suggestions }) => suggestions);
+
   return (
     <CapabilityCard<WorkoutSuggestion>
       title="Workout suggestions"
       description="Recommend workouts from activity patterns."
-      path={`/api/workouts/suggestions/${encodeURIComponent('mona@example.com')}`}
-      responseKey="suggestions"
+      load={loadSuggestions}
       emptyMessage="No workout suggestions yet."
       renderItem={(workout) => workout.reason ? `${workout.title} - ${workout.reason}` : workout.title}
     />

@@ -1,11 +1,9 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { getJson } from '../api/client.js';
 
 type Props<T> = {
   title: string;
   description: string;
-  path: string;
-  responseKey: string;
+  load: () => Promise<T[]>;
   emptyMessage: string;
   renderItem: (item: T) => ReactNode;
 };
@@ -13,8 +11,7 @@ type Props<T> = {
 export function CapabilityCard<T>({
   title,
   description,
-  path,
-  responseKey,
+  load,
   emptyMessage,
   renderItem,
 }: Props<T>) {
@@ -26,9 +23,8 @@ export function CapabilityCard<T>({
     setItems(undefined);
     setError(undefined);
 
-    getJson<Record<string, T[]>>(path)
-      .then((response) => {
-        const result = response[responseKey];
+    load()
+      .then((result) => {
         if (!Array.isArray(result)) throw new Error('Invalid API response');
         if (active) setItems(result);
       })
@@ -41,7 +37,7 @@ export function CapabilityCard<T>({
     return () => {
       active = false;
     };
-  }, [path, responseKey]);
+  }, [load]);
 
   return (
     <section className="card h-100">
